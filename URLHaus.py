@@ -1,7 +1,7 @@
 from urlhlib import *
 import urlhlib
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, simpledialog, filedialog
 import os
 #win32com.client as win32
 
