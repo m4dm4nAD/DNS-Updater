@@ -1,5 +1,5 @@
-from urlhlib import *
-import urlhlib
+from UmbrellaLib import *
+import UmbrellaLib
 import tkinter as tk
 from tkinter import ttk, simpledialog, filedialog
 import os
@@ -47,7 +47,7 @@ def handle_option(self):
         elif option == '3':
             url = simpledialog.askstring("Enter URL", "What is the URL you would like to upload?")
             comment = simpledialog.askstring("Enter Comment", "Enter comments (Source and date in YYDDMM format).")
-            urlhlib.manual(url, comment)
+            UmbrellaLib.manual(url, comment)
 #        elif optional =='4':
 #            print("Not functional yet./n Goodbye.")
 if __name__ == "__main__":
