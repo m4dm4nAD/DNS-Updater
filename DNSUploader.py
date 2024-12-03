@@ -1,55 +1,30 @@
-from UmbrellaLib import *
-import UmbrellaLib
-import tkinter as tk
-from tkinter import ttk, simpledialog, filedialog
-import os
+from urlhlib import *
+import Checker
+import urlhlib
 #win32com.client as win32
 
-class URLHausUploader(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("URLHaus Uploader")
-        self.geometry("400x300")
+print ("\t \t \t CLI to upload URL's or IPs to DNS Security tools (Umbrella, Cloudflare, etc.)")
+start = input ("What would you like to do? \n(1)Upload to Cisco Umbrella. \n(2)Upload an IP to a private webhook. \n(3)undefined right now")
 
-        # Create the main frame
-        main_frame = ttk.Frame(self, padding="20 20 20 20")
-        main_frame.grid(row=0, column=0, sticky=(tk.N, tk.S, tk.E, tk.W))
+if start == '1': 
+    umbrella = input("(1) Start the automated URLhaus uploader.\n(2) Choose a custom list to upload. \n(3) Manually add a single URL.\n(4) Delete a specific url (pending)\n")
+    if umbrella == '1':
+            urlhlib.automatic()
+            urlhlib.autoupload('uploadlist.txt')
 
-        # Create the option buttons
-        option_label = ttk.Label(main_frame, text="Choose an option:")
-        option_label.grid(row=0, column=0, sticky=tk.W)
+    elif umbrella == '2':
+        filename = input("Please input the file path, to the file you would like to upload.\nIf it's in this folder, just put the file name in.\n")
+        comment =  input("Enter content date (in YYMMDD format) and source (i.e. 220719 HISAC email)\n")
+        urlhlib.fileupload(filename, comment)
+        end = input("Press enter to exit.")
 
-        self.selected_option = tk.StringVar()
-        option_1 = ttk.Radiobutton(main_frame, text="Start the automated URLHaus uploader",
-                                  variable=self.selected_option, value="1")
-        option_2 = ttk.Radiobutton(main_frame, text="Choose a custom list to upload",
-                                  variable=self.selected_option, value="2")
-        option_3 = ttk.Radiobutton(main_frame, text="Manually add a single URL",
-                                  variable=self.selected_option, value="3")
-        option_1.grid(row=1, column=0, sticky=tk.W)
-        option_2.grid(row=2, column=0, sticky=tk.W)
-        option_3.grid(row=3, column=0, sticky=tk.W)
-
-        # Create the action button
-        action_button = ttk.Button(main_frame, text="Proceed", command=self.handle_option)
-        action_button.grid(row=4, column=0, sticky=tk.E, pady=10)
-def handle_option(self):
-        option = self.selected_option.get()
-        if option == '1':
-            automatic()
-            autoupload('uploadlist.txt')
-
-        elif option == '2':
-            filename = filedialog.askopenfilename(filetypes=[("Text Files", "*.txt")])
-            comment =  simpledialog.askstring("Enter Comment", "Enter content date (in YYMMDD format) and source (i.e. 220719 HISAC email)")
-            fileupload(filename, comment)
-
-        elif option == '3':
-            url = simpledialog.askstring("Enter URL", "What is the URL you would like to upload?")
-            comment = simpledialog.askstring("Enter Comment", "Enter comments (Source and date in YYDDMM format).")
-            UmbrellaLib.manual(url, comment)
-#        elif optional =='4':
-#            print("Not functional yet./n Goodbye.")
-if __name__ == "__main__":
-    app = URLHausUploader()
-    app.mainloop()
+    elif umbrella == '3':
+        url = input("What is the URL you would like to upload?\n")
+        comment = input("Enter comments (Source and date in YYDDMM format)).\n")
+        urlhlib.manual(url, comment)
+        end = input("Press enter to exit.")
+    elif umbrella =='4':
+        print("Not functional yet./n Goodbye.")
+elif start == '2':
+     check = input ("What IP would you like to check?")
+     Checker.checkip(check)
