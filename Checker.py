@@ -25,10 +25,7 @@ def checkip(ip):
             print("\nLocation Information:")
             print(f"Country: {location_data.get('countryName', 'Unknown')}")
             print(f"Country Code: {location_data.get('countryCode', 'Unknown')}")
-            print(f"City: {location_data.get('city', 'Unknown')}")
-            print(f"Region: {location_data.get('region', 'Unknown')}")
-            print(f"Latitude: {location_data.get('latitude', 'Unknown')}")
-            print(f"Longitude: {location_data.get('longitude', 'Unknown')}")
+            print(f"City: {location_data.get('abuseConfidenceScore', 'Unknown')}")
         else:
             print("No location data found for this IP")
             
