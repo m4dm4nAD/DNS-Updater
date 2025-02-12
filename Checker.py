@@ -1,11 +1,9 @@
 import requests
 import json
+from config import ABUSEIPDB_URL, ABUSEIPDB_API_KEY
 
 # Defining the api-endpoint
 def checkip(ip):
-    url = 'https://api.abuseipdb.com/api/v2/check'
-    ip = ip
-
     querystring = {
         'ipAddress': ip,
         'maxAgeInDays': '90'
@@ -13,11 +11,30 @@ def checkip(ip):
 
     headers = {
         'Accept': 'application/json',
-        'Key': 'YOUR_OWN_API_KEY'
+        'Key': ABUSEIPDB_API_KEY
     }
 
-    response = requests.request(method='GET', url=url, headers=headers, params=querystring)
+    try:
+        response = requests.request(method='GET', url=ABUSEIPDB_URL, headers=headers, params=querystring)
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        if 'data' in data:
+            location_data = data['data']
+            print("\nLocation Information:")
+            print(f"Country: {location_data.get('countryName', 'Unknown')}")
+            print(f"Country Code: {location_data.get('countryCode', 'Unknown')}")
+            print(f"City: {location_data.get('city', 'Unknown')}")
+            print(f"Region: {location_data.get('region', 'Unknown')}")
+            print(f"Latitude: {location_data.get('latitude', 'Unknown')}")
+            print(f"Longitude: {location_data.get('longitude', 'Unknown')}")
+        else:
+            print("No location data found for this IP")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error checking IP: {e}")
+    except json.JSONDecodeError:
+        print("Error parsing API response")
 
-    # Formatted output
-    decodedResponse = json.loads(response.text)
-    print (json.dumps(decodedResponse, sort_keys=True, indent=4))
+    return data
