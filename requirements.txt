@@ -1,5 +1,0 @@
-requests>=2.31.0
-python-dotenv>=1.0.0
-pandas>=2.1.0
-tldextract>=5.1.1
-pywin32>=306; platform_system == "Windows" 
