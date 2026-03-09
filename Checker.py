@@ -23,9 +23,9 @@ def checkip(ip):
         if 'data' in data:
             location_data = data['data']
             print("\nLocation Information:")
-            print(f"Country: {location_data.get('countryName', 'Unknown')}")
-            print(f"Country Code: {location_data.get('countryCode', 'Unknown')}")
-            print(f"City: {location_data.get('abuseConfidenceScore', 'Unknown')}")
+            print(f"Country: {location_data.get('countryName', 0)}")
+            print(f"Country Code: {location_data.get('countryCode', 0)}")
+            print(f"City: {location_data.get('abuseConfidenceScore', 0)}")
         else:
             print("No location data found for this IP")
             
